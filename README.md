@@ -28,5 +28,5 @@ struct Settings
 * [Magnetic sensors](https://www.aliexpress.com/item/1005001309886250.html)
 
 ### Schema:
-![Schema](https://github.com/vitzaoral/ESP8266_BeeHive_WiFi/tree/master/schema/schema.png)
+![Schema](https://github.com/vitzaoral/ESP8266_BeeHive_WiFi/blob/master/schema/schema.png?raw=true)
 
