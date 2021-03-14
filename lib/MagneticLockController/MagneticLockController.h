@@ -3,8 +3,7 @@
 
 #include <Arduino.h>
 
-#define LOCK_BOTTOM_PIN D6
-#define LOCK_ROOF_PIN D5
+#define LOCK_ROOF_PIN D3
 
 struct LockData
 {
@@ -16,7 +15,6 @@ class MagneticLockController
 {
 public:
   LockData sensorRoof;
-  LockData sensorBottom;
 
   void setData();
   bool isOk();

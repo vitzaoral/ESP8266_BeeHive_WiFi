@@ -4,20 +4,15 @@ void MagneticLockController::setData()
 {
     // clear "wires memory"
     // on long cables it works slowly, so set tu LOW and check if is HIGH
-    pinMode(LOCK_BOTTOM_PIN, OUTPUT);
     pinMode(LOCK_ROOF_PIN, OUTPUT);
     
-    digitalWrite(LOCK_BOTTOM_PIN, LOW);
     digitalWrite(LOCK_ROOF_PIN, LOW);
 
     delay(200);
-    pinMode(LOCK_BOTTOM_PIN, INPUT);
     pinMode(LOCK_ROOF_PIN, INPUT);
 
     Serial.print("Magnetic lock roof: ");
     setSensorData(&sensorRoof, LOCK_ROOF_PIN);
-    Serial.print("Magnetic lock bottom: ");
-    setSensorData(&sensorBottom, LOCK_BOTTOM_PIN);
 }
 
 void MagneticLockController::setSensorData(LockData *data, int pin)
@@ -39,14 +34,12 @@ void MagneticLockController::setSensorData(LockData *data, int pin)
 // Check if all lockers are locked
 bool MagneticLockController::isOk()
 {
-    return sensorRoof.locked &&
-           sensorBottom.locked;
+    return sensorRoof.locked;
 }
 
 // alarm message for alarm notification
 String MagneticLockController::getAlarmMessage()
 {
     String message = "";
-    return String(sensorRoof.locked ? "" : "roof") +
-           String(sensorBottom.locked ? "" : "bottom");
+    return String(sensorRoof.locked ? "" : "roof");
 }
