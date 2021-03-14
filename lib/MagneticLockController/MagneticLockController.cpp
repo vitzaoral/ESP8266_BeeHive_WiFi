@@ -5,7 +5,6 @@ void MagneticLockController::setData()
     // clear "wires memory"
     // on long cables it works slowly, so set tu LOW and check if is HIGH
     pinMode(LOCK_ROOF_PIN, OUTPUT);
-    
     digitalWrite(LOCK_ROOF_PIN, LOW);
 
     delay(200);

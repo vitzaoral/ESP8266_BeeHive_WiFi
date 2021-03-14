@@ -18,9 +18,17 @@ void setup()
 
   Serial.println("Setup done, send  data");
   sendDataToInternet();
-  Serial.println("Data sended, BYE BYE");
 
-  ESP.deepSleep(300e6); // 5 minutes
+  if ((connection.isAlarmEnabled && magneticLockController.isOk()) || !connection.isAlarmEnabled)
+  {
+    Serial.println("Data sended, BYE BYE");
+    ESP.deepSleep(300e6);
+  }
+  else if (connection.isAlarmEnabled && !magneticLockController.isOk())
+  {
+    Serial.println("Data sended, ALARM, BYE BYE for 30 sec");
+    ESP.deepSleep(30e6);
+  }
 }
 
 void loop()
@@ -40,6 +48,20 @@ void sendDataToInternet()
     Serial.println("Sending data to Blynk");
     connection.sendDataToBlynk(meteoData, magneticLockController);
     connection.checkForUpdates();
+
+    if (magneticLockController.isOk())
+    {
+      // update blynk data and turn alarm off
+      if (connection.isAlarmEnabled)
+      {
+        connection.setMagneticLockControllerDataToBlynkIfAlarm(magneticLockController);
+      }
+    }
+    else
+    {
+      connection.alarmMagneticController(magneticLockController);
+    }
+
     connection.disconnect();
   }
   else

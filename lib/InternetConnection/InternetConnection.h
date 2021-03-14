@@ -10,7 +10,7 @@ class InternetConnection
 {
 public:
   InternetConnection();
-  bool isAlarm;
+  bool isAlarmEnabled;
   bool initializeConnection();
   void disconnect();
   void sendDataToBlynk(MeteoData, MagneticLockController);

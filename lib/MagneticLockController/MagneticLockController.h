@@ -3,7 +3,7 @@
 
 #include <Arduino.h>
 
-#define LOCK_ROOF_PIN D3
+#define LOCK_ROOF_PIN D5
 
 struct LockData
 {
