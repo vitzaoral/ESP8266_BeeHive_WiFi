@@ -64,7 +64,7 @@ BLYNK_WRITE(V0)
 InternetConnection::InternetConnection()
 {
     // true if is actual alarm - run Blynk.run
-    isAlarmEnabled = true;
+    isAlarm = false;
 }
 
 bool InternetConnection::initializeConnection()
@@ -131,8 +131,6 @@ void InternetConnection::sendDataToBlynk(
         // magnetic locks data
         setMagneticLockControllerDataToBlynk(magneticLockController);
 
-        isAlarmEnabled = alarmIsEnabled;
-
         // set alarm info
         setAlarmInfoToBlynk();
 
@@ -167,13 +165,19 @@ void InternetConnection::setMagneticLockControllerDataToBlynk(MagneticLockContro
 
 void InternetConnection::setAlarmInfoToBlynk()
 {
-    Blynk.virtualWrite(V7, isAlarmEnabled ? "ALARM ZAPNUT" : "ALARM VYPNUT");
+    Blynk.virtualWrite(V7, isAlarm ? "AKTUÁLNÍ ALARM!" : "OK");
     Blynk.virtualWrite(V8, alarmEnabledNotifications ? "Alarm notifikace zapnuty" : "Alarm notifikace vypnuty");
+    Blynk.virtualWrite(V9, alarmIsEnabled ? "Alarm zapnut" : "Alarm vypnut");
+
+    if (isAlarm)
+    {
+        Serial.println("\n !! ALARM !! \n");
+    }
 }
 
 void InternetConnection::blynkRunIfAlarm()
 {
-    if (alarmIsEnabled)
+    if (alarmIsEnabled && isAlarm)
     {
         Blynk.run();
     }
@@ -181,7 +185,7 @@ void InternetConnection::blynkRunIfAlarm()
 
 void InternetConnection::setMagneticLockControllerDataToBlynkIfAlarm(MagneticLockController magneticLockController)
 {
-    if (isAlarmEnabled)
+    if (isAlarm)
     {
         setMagneticLockControllerDataToBlynk(magneticLockController);
     }
@@ -303,4 +307,4 @@ void InternetConnection::checkForUpdates()
 
     terminal.println(message);
     terminal.flush();
-}
+} 
