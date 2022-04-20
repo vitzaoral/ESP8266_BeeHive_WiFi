@@ -23,11 +23,13 @@ void setup()
   {
     Serial.println("Data sended, BYE BYE");
     ESP.deepSleep(300e6);
+    delay(100);
   }
   else if (connection.isAlarmEnabled && !magneticLockController.isOk())
   {
     Serial.println("Data sended, ALARM, BYE BYE for 30 sec");
     ESP.deepSleep(30e6);
+    delay(100);
   }
 }
 

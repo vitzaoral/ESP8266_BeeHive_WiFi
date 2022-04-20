@@ -5,7 +5,7 @@
 #include <BlynkSimpleEsp8266.h>
 #include "../../src/Settings.cpp"
 
- Settings settings;
+Settings settings;
 
 // HTTP Clients for OTA over WiFi
 WiFiClient client;
